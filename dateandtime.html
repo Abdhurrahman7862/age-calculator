@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: blueviolet;
+        }
+        .cont {
+
+            background-color: bisque;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            left: 23%;
+            border: 6px;
+            border-style: solid;
+            border-color: chartreuse;
+            border-radius: 10px;top: 25%;
+        }
+
+        .date {
+            padding: 3px;
+            margin: 5px;
+            width: 30%;
+        }.box:hover{
+            transform:scaley(1.5);
+            transform:scalex(0.9);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cont">
+        <h1>AGE CALCULATOR</h1>
+        <div class="box" style="display: flex;transition:1.5s;align-items:center;justify-content:space-evenly;background-color: chocolate;">
+
+            <input type="date" class="date">
+            <button onclick="calculateage()" style="padding: 7px;background-color:yellow ;border-radius:10px;">check</button></div>
+            <h3>YOUR AGE:</h3>
+            <div id="res" style=" background-color:crimson;color:yellow;padding:5px;width:50%;position:relative;left:20%;min-height:10%;border-radius:5px;"></div>
+        
+    </div>
+    <script>
+        let userinput = document.querySelector(".date")
+        userinput.max = new Date().toISOString().split("T")[0];
+        var resultblock = document.getElementById("res")
+        function calculateage() {
+            let birthDate = new Date(userinput.value)
+
+            let d1 = birthDate.getDate()
+            let m1 = birthDate.getMonth() + 1;
+            let y1 = birthDate.getFullYear()
+
+            let today = new Date();
+            let d2 = today.getDate()
+            let m2 = today.getMonth() + 1;
+            let y2 = today.getFullYear();
+
+
+            let d3, m3, y3;
+
+            y3 = y2 - y1
+            if (m2 >= m1) {
+                m3 = m2 - m1;
+
+            } else {
+                y3--
+                m3 = 12 + m2 - m1;
+            }
+            if (d2 >= d1) {
+                d3 = d2 - d1;
+
+            } else {
+                m3--;
+                d3 = getDaysInMonth(y1, m1) + d2 - d1;
+            }
+            if (m3 < 0) {
+                m3 = 11;
+                y3--;
+            }
+
+            resultblock.innerHTML = `<h2>${y3} years ${m3} months ${d3} days</h2>`
+
+
+
+        }
+        function getDaysInMonth(year, month) {
+            return new Date(year, month, 0).getDate()
+
+        }
+    </script>
+</body>
+
+</html>
